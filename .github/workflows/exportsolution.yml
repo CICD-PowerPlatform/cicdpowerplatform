@@ -9,4 +9,26 @@ on:
       SolutionExportedFolder:
         description: "Folder to Export"
         required: true
-        
+env:
+  #service principal 
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+  TENANT_ID: ${{ secrets.TENANT_ID }}
+
+jobs:
+  Connection:
+    runs-on: windows-latest
+    env:
+      RUNNER_DEBUG: 1
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Connection
+        uses: microsoft/powerplatform-actions/who-am-i@v0
+        with:
+          environment-url: "https://goj-d-osh.crm4.dynamics.com"
+          app-id: ${{env.CLIENT_ID}}
+          client-secret: ${{env.CLIENT_SECRET}}
+          tenant-id: ${{env.TENANT_ID}}
+

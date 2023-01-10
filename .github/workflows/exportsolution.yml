@@ -1,1 +1,4 @@
 name: export-solution
+
+on:
+  workflow_dispatch:
